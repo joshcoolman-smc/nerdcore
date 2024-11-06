@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { Squirrel, Cat } from 'lucide-react'
 
 export async function GlobalNav() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { session } } = await supabase.auth.getSession()
 
   return (
