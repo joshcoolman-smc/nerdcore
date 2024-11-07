@@ -28,6 +28,11 @@ export class SupabasePostRepository implements IPostRepository {
   }
 
   async createPost(data: CreatePostDto): Promise<Post> {
+    // Get the current user's ID
+    const { data: { user }, error: userError } = await this.supabase.auth.getUser();
+    if (userError) throw userError;
+    if (!user) throw new Error('User must be logged in to create a post');
+
     // Handle image upload if imageUrl is a File/Blob
     let imageUrl = data.imageUrl;
     if (data.imageUrl && data.imageUrl instanceof File) {
@@ -46,14 +51,27 @@ export class SupabasePostRepository implements IPostRepository {
       imageUrl = publicUrl;
     }
 
+    // Create the post with the current user as author
     const { data: post, error } = await this.supabase
       .from('posts')
-      .insert([{ ...data, image_url: imageUrl }])
+      .insert([{ 
+        title: data.title,
+        content: data.content,
+        image_url: imageUrl,
+        author_id: user.id,
+        excerpt: data.content.substring(0, 150) + '...' // Generate an excerpt
+      }])
       .select()
       .single();
 
     if (error) throw error;
-    return post as Post;
+    return {
+      ...post,
+      imageUrl: post.image_url,
+      authorId: post.author_id,
+      createdAt: new Date(post.created_at),
+      updatedAt: new Date(post.updated_at)
+    } as Post;
   }
 
   async updatePost(id: string, data: Partial<Post>): Promise<Post> {
