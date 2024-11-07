@@ -18,6 +18,7 @@ import {
 import { Pencil, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { AppImage } from "@/components/ui/app-image";
 
 export default function PostList() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -55,10 +56,7 @@ export default function PostList() {
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <Button
-          onClick={() => router.push('/posts/new')}
-          className="mb-4"
-        >
+        <Button onClick={() => router.push("/posts/new")} className="mb-4">
           New Post
         </Button>
       </div>
@@ -102,8 +100,8 @@ export default function PostList() {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete the
-                    post.
+                    This action cannot be undone. This will permanently delete
+                    the post.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
