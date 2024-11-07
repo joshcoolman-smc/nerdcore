@@ -1,56 +1,82 @@
-# AI-Generated NextJS / Supabase Project 
+# Nerdcore
 
-This codebase is AI generated. I'm exploring development with AI assistance and sharing the process publicly. So, because this is just me coding in public and experimenting with AI-generated code, there are a few things you should know: This codebase changes frequently as I learn and try new things. While you're welcome to look around and use anything you find helpful, keep in mind that I might change or break things at any time. I'm not really set up to handle contributions or provide support - it's just a personal learning project that I'm sharing openly.
+A modern Next.js blog platform with built-in Supabase integration.
 
+## Features
 
-## Current Features
+- Next.js 14 with App Router
+- Built-in Supabase Authentication
+- Blog post management with image support
+- Dark mode support with next-themes
+- Responsive design with Tailwind CSS
+- Complete ShadCN/UI component library
 
-- Authentication with Supabase
-- Next Themes, Dark Light Toggle
-- All ShadCN components installed
-- Responsive design
+## Quick Start
 
-## Local Development Setup
-
-1. Install dependencies:
+1. Clone the repository
+2. Install dependencies:
 ```bash
 pnpm install
 ```
 
-2. Set up your environment variables:
-   - Copy `.env.example` to `.env.local`
-   - Fill in the required environment variables:
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+3. Create a Supabase project at https://supabase.com
+4. Copy your project URL and anon key from the Supabase dashboard
+5. Create a `.env.local` file with your Supabase credentials:
+```
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-4. Set up Supabase:
-   - Create a new project at [supabase.com](https://supabase.com)
-   - Copy your project URL and anon key to your `.env.local`
-   - Run the necessary database migrations (if any)
+## Minimal Configuration
 
-5. Start the development server:
+This project works out of the box with minimal Supabase setup:
+
+1. Authentication is pre-configured - just enable Email provider in Supabase Auth settings
+2. The blog implementation uses Row Level Security (RLS) policies for secure data access
+3. File storage is configured for post images with appropriate security policies
+
+## Database Setup
+
+To implement the full blog functionality:
+
+1. Navigate to the SQL editor in your Supabase dashboard
+2. Copy and paste the contents of `src/features/posts/repositories/supabase-post-schema.sql`
+3. Execute the SQL to create:
+   - Posts table with proper schema
+   - Storage bucket for post images
+   - Row Level Security policies
+   - Automatic timestamp management
+
+The schema provides:
+- Secure post management (create/read/update/delete)
+- Image upload handling
+- User-based access control
+- Automatic timestamps
+
+## Development
+
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Building for Production
 
-## Project Status
+```bash
+pnpm build
+pnpm start
+```
 
-I'm using this project to explore and learn, working with AI to generate and modify code. The whole thing is essentially a big experiment, which means:
+## Project Structure
 
-- Things might break or change completely at any time
-- Features might be incomplete or experimental
-- I'm not able to accept contributions or feature requests
-- I can't provide support or help with issues
-- Feel free to use anything you find, but do so at your own risk
-
+See `conventions.md` for detailed information about:
+- Project organization
+- Coding conventions
+- Component guidelines
+- Theme configuration
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License - See LICENSE file for details
 # Nerdcore
 
 A Next.js blog platform with Supabase integration.
