@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { use } from "react";
 import { Post } from "@/features/posts/types/post.schema";
 import { postService } from "@/features/posts/services/PostService";
 import { AppImage } from "@/components/ui/app-image";
@@ -10,10 +11,12 @@ export default function PostPage({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  const id = use(params).id;
+
   useEffect(() => {
     async function fetchPost() {
       try {
-        const fetchedPost = await postService.getPost(params.id);
+        const fetchedPost = await postService.getPost(id);
         setPost(fetchedPost);
       } catch (err) {
         setError(err as Error);
@@ -23,7 +26,7 @@ export default function PostPage({ params }: { params: { id: string } }) {
     }
 
     fetchPost();
-  }, [params.id]);
+  }, [id]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

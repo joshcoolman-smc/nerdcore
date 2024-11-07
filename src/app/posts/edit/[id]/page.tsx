@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { use } from "react";
 import { useRouter } from "next/navigation";
 import { Post } from "@/features/posts/types/post.schema";
 import { postService } from "@/features/posts/services/PostService";
@@ -15,10 +16,12 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
+  const id = use(params).id;
+
   useEffect(() => {
     async function fetchPost() {
       try {
-        const fetchedPost = await postService.getPost(params.id);
+        const fetchedPost = await postService.getPost(id);
         setPost(fetchedPost);
       } catch (err) {
         setError(err as Error);
@@ -28,7 +31,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     }
 
     fetchPost();
-  }, [params.id]);
+  }, [id]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
