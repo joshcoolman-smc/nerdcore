@@ -14,7 +14,7 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="">
+    <div className="container mx-auto px-4">
       <PostList />
     </div>
   );
