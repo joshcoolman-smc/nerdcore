@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { postService } from "../services/post.service";
+import { postService } from "../services/PostService";
 import { Post } from "../types/post.schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AppImage } from "@/components/ui/app-image";
