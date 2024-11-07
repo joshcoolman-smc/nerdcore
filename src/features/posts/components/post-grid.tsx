@@ -29,20 +29,21 @@ export default function PostGrid() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full p-12">
-      {posts.map((post) => (
-        <div key={post.id} className="w-full">
-          <Card>
+    <div className="container mx-auto py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {posts.map((post) => (
+          <Card key={post.id} className="overflow-hidden">
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
             </CardHeader>
-            <CardContent>
-              {post.imageUrl ? (
-                <img
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="w-full aspect-[3/2] object-cover"
-                  onError={(e) => {
+            <CardContent className="p-0">
+              <div className="relative w-full aspect-[3/2]">
+                {post.imageUrl ? (
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => {
                     e.currentTarget.onerror = null; // prevents looping
                     e.currentTarget.src = "";
                     e.currentTarget.style.backgroundColor = "#e2e8f0"; // Tailwind gray-200
@@ -54,15 +55,18 @@ export default function PostGrid() {
                   }}
                 />
               ) : (
-                <div className="w-full aspect-[3/2] bg-gray-200 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
                   No image
                 </div>
               )}
-              <p>{post.excerpt}</p>
+              </div>
+              <div className="p-6">
+                <p>{post.excerpt}</p>
+              </div>
             </CardContent>
           </Card>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
