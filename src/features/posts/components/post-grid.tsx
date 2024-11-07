@@ -29,8 +29,8 @@ export default function PostGrid() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <div className="w-full max-w-7xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
         <div className="bg-red-800 aspect-square flex items-center justify-center text-white">
           Post Here
         </div>
