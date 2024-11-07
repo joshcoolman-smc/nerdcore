@@ -12,7 +12,13 @@ export class SupabasePostRepository implements IPostRepository {
       .order('created_at', { ascending: false });
 
     if (error) throw error;
-    return data as Post[];
+    return data.map(post => ({
+      ...post,
+      imageUrl: post.image_url,
+      authorId: post.author_id,
+      createdAt: new Date(post.created_at),
+      updatedAt: new Date(post.updated_at)
+    })) as Post[];
   }
 
   async getPost(id: string): Promise<Post> {
@@ -24,7 +30,13 @@ export class SupabasePostRepository implements IPostRepository {
 
     if (error) throw error;
     if (!data) throw new Error('Post not found');
-    return data as Post;
+    return {
+      ...data,
+      imageUrl: data.image_url,
+      authorId: data.author_id,
+      createdAt: new Date(data.created_at),
+      updatedAt: new Date(data.updated_at)
+    } as Post;
   }
 
   async createPost(data: CreatePostDto): Promise<Post> {
