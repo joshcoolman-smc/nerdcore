@@ -46,7 +46,9 @@ export default function PostPage({ params }: { params: { id: string } }) {
         <p>{post.content}</p>
       </div>
       <div className="mt-4 text-sm text-muted-foreground">
-        Posted: {new Date(post.createdAt).toLocaleDateString()}
+        Posted: {post.createdAt instanceof Date 
+          ? post.createdAt.toLocaleDateString() 
+          : new Date(post.createdAt).toLocaleDateString()}
       </div>
     </article>
   );
