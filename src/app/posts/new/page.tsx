@@ -50,11 +50,16 @@ export default function NewPostPage() {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="imageUrl">Image URL</Label>
-          <Input
-            id="imageUrl"
-            name="imageUrl"
-            placeholder="Enter image URL (optional)"
+          <Label>Post Image</Label>
+          <ImageUpload
+            uploadService={new SupabaseUploadService()}
+            onUploadComplete={(url) => {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'imageUrl';
+              input.value = url;
+              document.querySelector('form')?.appendChild(input);
+            }}
           />
         </div>
 

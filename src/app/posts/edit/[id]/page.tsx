@@ -72,11 +72,17 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="imageUrl">Image URL</Label>
-          <Input
-            id="imageUrl"
-            name="imageUrl"
-            defaultValue={post.imageUrl || ""}
+          <Label>Post Image</Label>
+          <ImageUpload
+            uploadService={new SupabaseUploadService()}
+            defaultImageUrl={post.imageUrl}
+            onUploadComplete={(url) => {
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'imageUrl';
+              input.value = url;
+              document.querySelector('form')?.appendChild(input);
+            }}
           />
         </div>
 
