@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { postService } from "../services/post.service";
 import { Post } from "../types/post.schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AppImage } from "@/components/ui/app-image";
 
 export default function PostGrid() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -32,12 +33,13 @@ export default function PostGrid() {
     <div className="w-full max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
         {posts.map((post) => (
-          <Card key={post.id} className="aspect-square">
+          <Card key={post.id}>
+            <AppImage src={post.imageUrl} alt={post.title} />
             <CardHeader>
-              <CardTitle>{post.title}</CardTitle>
+              <CardTitle className="line-clamp-1">{post.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>{post.content}</p>
+              <p className="line-clamp-2">{post.content}</p>
             </CardContent>
           </Card>
         ))}
