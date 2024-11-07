@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button"
+import PostGrid from "../features/posts/components/post-grid";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex items-center justify-center h-full">
-      <Button>Hello</Button>
+    <div className="bg-zinc-50 p-5 w-full">
+      <PostGrid />
     </div>
   );
 }
