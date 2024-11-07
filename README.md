@@ -51,3 +51,71 @@ I'm using this project to explore and learn, working with AI to generate and mod
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+# Nerdcore
+
+A Next.js blog platform with Supabase integration.
+
+## Features
+
+- Next.js 14 with App Router
+- Supabase Authentication
+- Blog post management with image support
+- Dark mode support
+- Responsive design with Tailwind CSS
+- ShadCN/UI components
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a Supabase project at https://supabase.com
+4. Copy your project URL and anon key from the Supabase dashboard
+5. Create a `.env.local` file with your Supabase credentials:
+```
+NEXT_PUBLIC_SUPABASE_URL=your-project-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
+
+## Database Setup
+
+1. Navigate to the SQL editor in your Supabase dashboard
+2. Copy and paste the contents of `src/features/posts/repositories/supabase-post-schema.sql`
+3. Execute the SQL to create the posts table and related policies
+
+## Implementing Supabase Posts Repository
+
+To switch from the mock repository to the Supabase implementation:
+
+1. Update `src/features/posts/services/PostService.ts`:
+```typescript
+import { SupabasePostRepository } from "../repositories/SupabasePostRepository";
+// ...
+export const postService = new PostService(new SupabasePostRepository());
+```
+
+2. The `SupabasePostRepository` implements:
+- Full CRUD operations for posts
+- Image upload handling
+- Row Level Security (RLS) policies
+- Automatic timestamp management
+
+## Development
+
+```bash
+npm run dev
+```
+
+## Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Project Structure
+
+See `conventions.md` for detailed information about the project structure and coding conventions.
