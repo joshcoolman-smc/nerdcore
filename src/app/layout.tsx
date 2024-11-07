@@ -22,7 +22,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="relative flex min-h-screen flex-col">
             <GlobalNav />
-            <main className="flex-1 pt-16">{children}</main>
+            <main className="flex-1 pt-24">{children}</main>
           </div>
         </ThemeProvider>
       </body>
