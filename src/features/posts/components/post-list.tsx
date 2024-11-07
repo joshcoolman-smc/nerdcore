@@ -54,6 +54,14 @@ export default function PostList() {
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end">
+        <Button
+          onClick={() => router.push('/posts/new')}
+          className="mb-4"
+        >
+          New Post
+        </Button>
+      </div>
       {posts.map((post) => (
         <div
           key={post.id}
