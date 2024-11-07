@@ -31,13 +31,13 @@ export default function PostGrid() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
-        {[1, 2, 3, 4].map((i) => (
-          <Card key={i} className="aspect-square">
+        {posts.map((post) => (
+          <Card key={post.id} className="aspect-square">
             <CardHeader>
-              <CardTitle>Title Here</CardTitle>
+              <CardTitle>{post.title}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>Content Here</p>
+              <p>{post.content}</p>
             </CardContent>
           </Card>
         ))}
