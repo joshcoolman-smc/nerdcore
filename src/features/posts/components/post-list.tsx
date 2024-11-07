@@ -65,15 +65,15 @@ export default function PostList() {
           key={post.id}
           className="flex items-center space-x-4 p-4 border rounded-lg"
         >
-          <AppImage
-            src={post.imageUrl}
-            alt={post.title}
-            width={64}
-            height={64}
-            aspectRatio={1}
-            rounded="md"
-            className="flex-shrink-0"
-          />
+          <div className="w-16 h-16 flex-shrink-0">
+            <AppImage
+              src={post.imageUrl}
+              alt={post.title}
+              aspectRatio={1}
+              rounded="md"
+              className="w-full h-full"
+            />
+          </div>
           <div className="flex-grow">
             <Link
               href={`/posts/${post.id}`}

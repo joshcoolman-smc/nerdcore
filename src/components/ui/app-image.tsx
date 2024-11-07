@@ -27,16 +27,11 @@ export function AppImage({
 }: AppImageProps) {
   const [hasError, setHasError] = useState(false);
 
-  const imageStyle = {
-    width: width ? `${width}px` : '100%',
-    height: height ? `${height}px` : '100%'
-  };
-
   const roundedClass = rounded ? `rounded-${rounded}` : '';
   const fallbackClasses = fallbackClassName || `bg-zinc-900 ${roundedClass}`;
 
   return (
-    <AspectRatio ratio={aspectRatio} className={className} style={imageStyle}>
+    <AspectRatio ratio={aspectRatio} className={className}>
       {src && !hasError ? (
         <Image
           src={src}
