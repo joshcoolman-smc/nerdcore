@@ -31,18 +31,16 @@ export default function PostGrid() {
   return (
     <div className="w-full max-w-7xl mx-auto px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 w-full">
-        <div className="bg-red-800 aspect-square flex items-center justify-center text-white">
-          Post Here
-        </div>
-        <div className="bg-red-800 aspect-square flex items-center justify-center text-white">
-          Post Here
-        </div>
-        <div className="bg-red-800 aspect-square flex items-center justify-center text-white">
-          Post Here
-        </div>
-        <div className="bg-red-800 aspect-square flex items-center justify-center text-white">
-          Post Here
-        </div>
+        {[1, 2, 3, 4].map((i) => (
+          <Card key={i} className="aspect-square">
+            <CardHeader>
+              <CardTitle>Title Here</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Content Here</p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
     </div>
   );
