@@ -28,4 +28,4 @@ export class PostService implements IPostService {
   }
 }
 
-export const postService = new PostService(new SupabasePostRepository());
+export const postService = new PostService(new MockPostRepository());
