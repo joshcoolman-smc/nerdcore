@@ -20,6 +20,7 @@ export default function NewPostPage() {
       const newPost = {
         title: formData.get("title") as string,
         content: formData.get("content") as string,
+        excerpt: formData.get("excerpt") as string || undefined,
         imageUrl: formData.get("imageUrl") as string || null,
       };
 
@@ -54,6 +55,16 @@ export default function NewPostPage() {
             id="imageUrl"
             name="imageUrl"
             placeholder="Enter image URL (optional)"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="excerpt">Excerpt</Label>
+          <Textarea
+            id="excerpt"
+            name="excerpt"
+            placeholder="Write a brief excerpt (optional)"
+            className="min-h-[80px]"
           />
         </div>
 

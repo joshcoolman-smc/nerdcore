@@ -41,6 +41,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     const updatedPost = {
       title: formData.get("title") as string,
       content: formData.get("content") as string,
+      excerpt: formData.get("excerpt") as string || undefined,
       imageUrl: formData.get("imageUrl") as string,
     };
 
@@ -76,6 +77,16 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
             id="imageUrl"
             name="imageUrl"
             defaultValue={post.imageUrl || ""}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="excerpt">Excerpt</Label>
+          <Textarea
+            id="excerpt"
+            name="excerpt"
+            defaultValue={post.excerpt || ""}
+            className="min-h-[80px]"
           />
         </div>
 
