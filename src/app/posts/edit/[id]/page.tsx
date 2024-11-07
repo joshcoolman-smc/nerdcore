@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { SupabaseUploadService } from "@/features/upload/services/supabase-upload.service";
+import { ImageUpload } from "@/features/upload/components/image-upload";
 
 export default function EditPostPage({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -41,7 +43,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     const updatedPost = {
       title: formData.get("title") as string,
       content: formData.get("content") as string,
-      excerpt: formData.get("excerpt") as string || undefined,
+      excerpt: (formData.get("excerpt") as string) || undefined,
       imageUrl: formData.get("imageUrl") as string,
     };
 
@@ -63,25 +65,20 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="title">Title</Label>
-          <Input
-            id="title"
-            name="title"
-            defaultValue={post.title}
-            required
-          />
+          <Input id="title" name="title" defaultValue={post.title} required />
         </div>
-        
+
         <div className="space-y-2">
           <Label>Post Image</Label>
           <ImageUpload
             uploadService={new SupabaseUploadService()}
             defaultImageUrl={post.imageUrl}
             onUploadComplete={(url) => {
-              const input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = 'imageUrl';
+              const input = document.createElement("input");
+              input.type = "hidden";
+              input.name = "imageUrl";
               input.value = url;
-              document.querySelector('form')?.appendChild(input);
+              document.querySelector("form")?.appendChild(input);
             }}
           />
         </div>
@@ -109,11 +106,7 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
 
         <div className="flex space-x-4">
           <Button type="submit">Save Changes</Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => router.back()}
-          >
+          <Button type="button" variant="outline" onClick={() => router.back()}>
             Cancel
           </Button>
         </div>
