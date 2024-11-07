@@ -25,6 +25,14 @@ export async function GlobalNav() {
         )}
       </div>
       <div className="flex items-center gap-4">
+        {session && (
+          <Link 
+            href="/dashboard" 
+            className="text-sm font-medium hover:text-primary"
+          >
+            Dashboard
+          </Link>
+        )}
         <AuthStatus />
         <ThemeToggle />
       </div>
