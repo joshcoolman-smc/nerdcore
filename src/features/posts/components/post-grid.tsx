@@ -29,9 +29,9 @@ export default function PostGrid() {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="grid grid-cols-4 w-full p-12">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full p-12">
       {posts.map((post) => (
-        <div key={post.id}>
+        <div key={post.id} className="w-full">
           <Card>
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
@@ -41,7 +41,7 @@ export default function PostGrid() {
                 <img
                   src={post.imageUrl}
                   alt={post.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full aspect-[3/2] object-cover"
                   onError={(e) => {
                     e.currentTarget.onerror = null; // prevents looping
                     e.currentTarget.src = "";
@@ -54,7 +54,7 @@ export default function PostGrid() {
                   }}
                 />
               ) : (
-                <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+                <div className="w-full aspect-[3/2] bg-gray-200 flex items-center justify-center">
                   No image
                 </div>
               )}
