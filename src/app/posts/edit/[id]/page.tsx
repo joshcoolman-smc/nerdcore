@@ -40,15 +40,27 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
     if (!post) return;
 
     const formData = new FormData(e.currentTarget);
-    const updatedPost = {
+    const formValues = {
       title: formData.get("title") as string,
       content: formData.get("content") as string,
       excerpt: (formData.get("excerpt") as string) || undefined,
-      imageUrl: formData.get("imageUrl") as string,
+      imageUrl: formData.get("imageUrl") as string || post.imageUrl, // Keep existing image if no new one
     };
 
+    // Check if anything has actually changed
+    const hasChanges = 
+      formValues.title !== post.title ||
+      formValues.content !== post.content ||
+      formValues.excerpt !== post.excerpt ||
+      formValues.imageUrl !== post.imageUrl;
+
+    if (!hasChanges) {
+      router.push(`/posts/${post.id}`);
+      return;
+    }
+
     try {
-      await postService.updatePost(post.id, updatedPost);
+      await postService.updatePost(post.id, formValues);
       router.push(`/posts/${post.id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update post");
@@ -82,11 +94,20 @@ export default function EditPostPage({ params }: { params: { id: string } }) {
             uploadService={new SupabaseUploadService()}
             defaultImageUrl={post.imageUrl}
             onUploadComplete={(url) => {
-              const input = document.createElement("input");
-              input.type = "hidden";
-              input.name = "imageUrl";
-              input.value = url;
-              document.querySelector("form")?.appendChild(input);
+              // Remove any existing imageUrl input
+              const existingInput = document.querySelector('input[name="imageUrl"]');
+              if (existingInput) {
+                existingInput.remove();
+              }
+              
+              // Add new imageUrl input if we have a URL
+              if (url) {
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "imageUrl";
+                input.value = url;
+                document.querySelector("form")?.appendChild(input);
+              }
             }}
           />
         </div>
