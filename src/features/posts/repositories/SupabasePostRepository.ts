@@ -105,15 +105,29 @@ export class SupabasePostRepository implements IPostRepository {
       imageUrl = publicUrl;
     }
 
+    // Transform the data to match database column names
+    const transformedData = {
+      title: data.title,
+      content: data.content,
+      excerpt: data.excerpt,
+      image_url: data.imageUrl
+    };
+
     const { data: post, error } = await this.supabase
       .from('posts')
-      .update({ ...data, image_url: imageUrl })
+      .update(transformedData)
       .eq('id', id)
       .select()
       .single();
 
     if (error) throw error;
-    return post as Post;
+    return {
+      ...post,
+      imageUrl: post.image_url,
+      authorId: post.author_id,
+      createdAt: new Date(post.created_at),
+      updatedAt: new Date(post.updated_at)
+    } as Post;
   }
 
   async deletePost(id: string): Promise<void> {
