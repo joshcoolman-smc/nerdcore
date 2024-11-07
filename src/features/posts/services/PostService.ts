@@ -2,6 +2,7 @@ import { Post, CreatePostDto } from "../types/post.schema";
 import { IPostRepository } from "../repositories/IPostRepository";
 import { IPostService } from "./IPostService";
 import { MockPostRepository } from "../repositories/MockPostRepository";
+import { SupabasePostRepository } from "../repositories/SupabasePostRepository";
 
 export class PostService implements IPostService {
   constructor(private readonly repository: IPostRepository) {}
@@ -27,4 +28,4 @@ export class PostService implements IPostService {
   }
 }
 
-export const postService = new PostService(new MockPostRepository());
+export const postService = new PostService(new SupabasePostRepository());

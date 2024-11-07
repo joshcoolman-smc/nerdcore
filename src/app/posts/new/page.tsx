@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { SupabaseUploadService } from "@/features/upload/services/supabase-upload.service";
+import { ImageUpload } from "@/features/upload/components/image-upload";
 
 export default function NewPostPage() {
   const router = useRouter();
@@ -15,13 +17,13 @@ export default function NewPostPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    
+
     try {
       const newPost = {
         title: formData.get("title") as string,
         content: formData.get("content") as string,
-        excerpt: formData.get("excerpt") as string || undefined,
-        imageUrl: formData.get("imageUrl") as string || null,
+        excerpt: (formData.get("excerpt") as string) || undefined,
+        imageUrl: (formData.get("imageUrl") as string) || null,
       };
 
       const post = await postService.createPost(newPost);
@@ -35,10 +37,8 @@ export default function NewPostPage() {
     <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Create New Post</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="text-red-500 text-sm">{error}</div>
-        )}
-        
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+
         <div className="space-y-2">
           <Label htmlFor="title">Title</Label>
           <Input
@@ -48,17 +48,17 @@ export default function NewPostPage() {
             placeholder="Enter post title"
           />
         </div>
-        
+
         <div className="space-y-2">
           <Label>Post Image</Label>
           <ImageUpload
             uploadService={new SupabaseUploadService()}
             onUploadComplete={(url) => {
-              const input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = 'imageUrl';
+              const input = document.createElement("input");
+              input.type = "hidden";
+              input.name = "imageUrl";
               input.value = url;
-              document.querySelector('form')?.appendChild(input);
+              document.querySelector("form")?.appendChild(input);
             }}
           />
         </div>
@@ -86,11 +86,7 @@ export default function NewPostPage() {
 
         <div className="flex space-x-4">
           <Button type="submit">Create Post</Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => router.back()}
-          >
+          <Button type="button" variant="outline" onClick={() => router.back()}>
             Cancel
           </Button>
         </div>
